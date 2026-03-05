@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test Mobile App Deeplink</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
+          Cantarell, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+      }
+
+      .container {
+        background: white;
+        border-radius: 20px;
+        padding: 40px;
+        max-width: 500px;
+        width: 100%;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      }
+
+      h1 {
+        color: #333;
+        margin-bottom: 10px;
+        font-size: 28px;
+        text-align: center;
+      }
+
+      .subtitle {
+        color: #666;
+        margin-bottom: 30px;
+        text-align: center;
+        font-size: 14px;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        color: #555;
+        font-weight: 500;
+        font-size: 14px;
+      }
+
+      input {
+        width: 100%;
+        padding: 12px 15px;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        font-size: 14px;
+        transition: border-color 0.3s;
+      }
+
+      input:focus {
+        outline: none;
+        border-color: #667eea;
+      }
+
+      .button-group {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin-top: 30px;
+      }
+
+      button {
+        padding: 15px 30px;
+        font-size: 16px;
+        font-weight: 600;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.3s;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+      }
+
+      .btn-secondary {
+        background: #f5f5f5;
+        color: #333;
+      }
+
+      .btn-secondary:hover {
+        background: #e0e0e0;
+      }
+
+      .btn-ios {
+        background: linear-gradient(135deg, #1c1c1e 0%, #3a3a3c 100%);
+        color: white;
+        padding: 15px 30px;
+        font-size: 16px;
+        font-weight: 600;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.3s;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .btn-ios:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+      }
+
+      .info-box {
+        background: #f8f9ff;
+        border-left: 4px solid #667eea;
+        padding: 15px;
+        border-radius: 8px;
+        margin-top: 25px;
+      }
+
+      .info-box h3 {
+        color: #667eea;
+        font-size: 14px;
+        margin-bottom: 10px;
+      }
+
+      .info-box p {
+        color: #666;
+        font-size: 13px;
+        line-height: 1.6;
+        word-break: break-all;
+      }
+
+      .copy-btn {
+        margin-top: 10px;
+        padding: 8px 15px;
+        font-size: 12px;
+        background: #667eea;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .copy-btn:hover {
+        background: #5568d3;
+      }
+
+      .toast {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #4caf50;
+        color: white;
+        padding: 15px 25px;
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        display: none;
+        animation: slideIn 0.3s ease;
+      }
+
+      .toast.show {
+        display: block;
+      }
+
+      @keyframes slideIn {
+        from {
+          transform: translateX(400px);
+        }
+
+        to {
+          transform: translateX(0);
+        }
+      }
+
+      .divider {
+        height: 1px;
+        background: #e0e0e0;
+        margin: 30px 0;
+      }
+
+      @media (max-width: 480px) {
+        .container {
+          padding: 30px 20px;
+        }
+
+        h1 {
+          font-size: 24px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>🚀 Test Deeplink App</h1>
+      <p class="subtitle">Vita Dairy Mobile App Testing</p>
+
+      <div class="form-group">
+        <label for="utm_campaign">UTM Campaign</label>
+        <input
+          type="text"
+          id="utm_campaign"
+          placeholder="ví dụ: tet2026"
+          value="tet2026"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="utm_source">UTM Source</label>
+        <input type="text" id="utm_source" placeholder="ví dụ: fb" value="fb" />
+      </div>
+
+      <div class="form-group">
+        <label for="utm_medium">UTM Medium (Optional)</label>
+        <input type="text" id="utm_medium" placeholder="ví dụ: banner" />
+      </div>
+
+      <div class="form-group">
+        <label for="utm_content">UTM Content (Optional)</label>
+        <input type="text" id="utm_content" placeholder="ví dụ: promo_image" />
+      </div>
+
+      <div class="button-group">
+        <button class="btn-primary" onclick="openDeeplink()">
+          📱 Mở App với Deeplink
+        </button>
+        <button class="btn-ios" onclick="installIOS()">
+          🍎 Tải App (iOS - New Install)
+        </button>
+        <button class="btn-secondary" onclick="copyDeeplink()">
+          📋 Copy Deeplink
+        </button>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="info-box">
+        <h3>App Link (HTTPS) được tạo:</h3>
+        <p id="deeplink-display">
+          https://lc2jf9bn-8080.asse.devtunnels.ms/open?utm_campaign=tet2026&utm_source=fb
+        </p>
+        <button class="copy-btn" onclick="copyDeeplinkFromDisplay()">
+          Copy
+        </button>
+      </div>
+
+      <div
+        class="info-box"
+        style="
+          margin-top: 15px;
+          background: #fff8e1;
+          border-left-color: #ffa726;
+        "
+      >
+        <h3 style="color: #f57c00">ℹ️ Hướng dẫn:</h3>
+        <p style="color: #666">
+          <b>Android (đã cài):</b> Nhấn "Mở App" → App tự mở với UTM (App Links)<br />
+          <b>Android (chưa cài):</b> Nhấn "Mở App" → Play Store với referrer<br />
+          <b>iOS (đã cài):</b> Nhấn "Mở App" → App tự mở với UTM (Universal Links)<br />
+          <b>iOS (chưa cài):</b> Nhấn "Tải App (iOS)" → UTM copy vào clipboard →
+          App Store → App đọc clipboard
+        </p>
+      </div>
+    </div>
+
+    <div class="toast" id="toast">Đã copy!</div>
+
+    <script>
+      // ===== CONFIG - Thay đổi các thông số ở đây =====
+      const CONFIG = {
+        webDomain: "lc2jf9bn-8080.asse.devtunnels.ms",
+        deeplinkScheme: "vn.loyalty.vn",
+        androidPackageId: "com.tesoglobal.vtd_mb_channel_demo",
+        playStoreUrl:
+          "https://play.google.com/store/apps/details?id=com.tesoglobal.vtd_mb_channel_demo",
+        // iOS - thay YOUR_APP_ID bằng ID thật trên App Store
+        appStoreUrl: "https://apps.apple.com/app/idYOUR_APP_ID",
+      };
+      // ================================================
+
+      // Update deeplink display khi input thay đổi
+      function updateDeeplinkDisplay() {
+        const campaign = document.getElementById("utm_campaign").value;
+        const source = document.getElementById("utm_source").value;
+        const medium = document.getElementById("utm_medium").value;
+        const content = document.getElementById("utm_content").value;
+
+        let params = [];
+        if (campaign)
+          params.push(`utm_campaign=${encodeURIComponent(campaign)}`);
+        if (source) params.push(`utm_source=${encodeURIComponent(source)}`);
+        if (medium) params.push(`utm_medium=${encodeURIComponent(medium)}`);
+        if (content) params.push(`utm_content=${encodeURIComponent(content)}`);
+
+        const deeplink = `https://${CONFIG.webDomain}/open?${params.join("&")}`;
+
+        document.getElementById("deeplink-display").textContent = deeplink;
+      }
+
+      // Add event listeners cho inputs
+      document.querySelectorAll("input").forEach((input) => {
+        input.addEventListener("input", updateDeeplinkDisplay);
+      });
+
+      function openDeeplink() {
+        const campaign = document.getElementById("utm_campaign").value;
+        const source = document.getElementById("utm_source").value;
+        const medium = document.getElementById("utm_medium").value;
+        const content = document.getElementById("utm_content").value;
+
+        if (!campaign || !source) {
+          alert("Vui lòng nhập UTM Campaign và UTM Source!");
+          return;
+        }
+
+        let params = [];
+        if (campaign)
+          params.push(`utm_campaign=${encodeURIComponent(campaign)}`);
+        if (source) params.push(`utm_source=${encodeURIComponent(source)}`);
+        if (medium) params.push(`utm_medium=${encodeURIComponent(medium)}`);
+        if (content) params.push(`utm_content=${encodeURIComponent(content)}`);
+
+        // Navigate to HTTPS App Link
+        // OS will intercept if app is installed (App Links / Universal Links)
+        // If not, browser loads /open page which redirects to store
+        const appLink = `https://${CONFIG.webDomain}/open?${params.join("&")}`;
+        window.location.href = appLink;
+      }
+
+      // Hàm dùng chung: copy UTM params vào clipboard (dành cho iOS attribution)
+      function copyUTMToClipboard() {
+        const campaign = document.getElementById("utm_campaign").value;
+        const source = document.getElementById("utm_source").value;
+        const medium = document.getElementById("utm_medium").value;
+        const content = document.getElementById("utm_content").value;
+
+        let params = [];
+        if (source) params.push(`utm_source=${encodeURIComponent(source)}`);
+        if (campaign)
+          params.push(`utm_campaign=${encodeURIComponent(campaign)}`);
+        if (medium) params.push(`utm_medium=${encodeURIComponent(medium)}`);
+        if (content) params.push(`utm_content=${encodeURIComponent(content)}`);
+
+        const utmString = params.join("&");
+        return navigator.clipboard.writeText(utmString);
+      }
+
+      // Nút "Tải App (iOS)" - dành cho user chưa cài app trên iPhone
+      async function installIOS() {
+        const campaign = document.getElementById("utm_campaign").value;
+        const source = document.getElementById("utm_source").value;
+
+        if (!campaign || !source) {
+          alert("Vui lòng nhập UTM Campaign và UTM Source!");
+          return;
+        }
+
+        // Bước 1: Copy UTM vào clipboard
+        await copyUTMToClipboard();
+        showToast("✅ Đã copy UTM vào clipboard! Đang mở App Store...");
+
+        // Bước 2: Mở App Store sau (chỗ này config thêm app id vô nha ní)
+        setTimeout(() => {
+          window.location.href = CONFIG.appStoreUrl;
+        }, 800);
+      }
+
+      function copyDeeplink() {
+        const campaign = document.getElementById("utm_campaign").value;
+        const source = document.getElementById("utm_source").value;
+        const medium = document.getElementById("utm_medium").value;
+        const content = document.getElementById("utm_content").value;
+
+        if (!campaign || !source) {
+          alert("Vui lòng nhập UTM Campaign và UTM Source!");
+          return;
+        }
+
+        let params = [];
+        if (campaign)
+          params.push(`utm_campaign=${encodeURIComponent(campaign)}`);
+        if (source) params.push(`utm_source=${encodeURIComponent(source)}`);
+        if (medium) params.push(`utm_medium=${encodeURIComponent(medium)}`);
+        if (content) params.push(`utm_content=${encodeURIComponent(content)}`);
+
+        const deeplink = `https://${CONFIG.webDomain}/open?${params.join("&")}`;
+
+        navigator.clipboard.writeText(deeplink).then(() => {
+          showToast("Đã copy App Link!");
+        });
+      }
+
+      function copyDeeplinkFromDisplay() {
+        const text = document.getElementById("deeplink-display").textContent;
+        navigator.clipboard.writeText(text).then(() => {
+          showToast("Đã copy App Link!");
+        });
+      }
+
+      function showToast(message) {
+        const toast = document.getElementById("toast");
+        toast.textContent = message;
+        toast.classList.add("show");
+        setTimeout(() => {
+          toast.classList.remove("show");
+        }, 2000);
+      }
+
+      // Initialize display
+      updateDeeplinkDisplay();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,14 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.tesoglobal.vtd_mb_channel_demo",
+      "sha256_cert_fingerprints": [
+        "9E:15:A2:56:E2:CD:D6:95:DA:B1:D1:44:D5:49:CE:78:F7:E1:9F:94:2F:43:D2:1F:96:2D:DD:54:18:60:FB:D1"
+      ]
+    }
+  }
+]
